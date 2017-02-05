@@ -1,0 +1,18 @@
+{% extends "AppBundle::base.html.twig" %}
+
+{% block title %}AppBundle:App:view{% endblock %}
+
+{% block body %}
+  <h2>Modification d'un manga</h2>
+  <div class="container">
+    <div class="well">
+      <a href="{{ path('home') }}" class="btn btn-default">
+        <span class="glyphicon glyphicon-chevron-left"></span> Retour
+      </a>
+      {{ form(form) }}
+      <a href="{{ path('home') }}" class="btn btn-default">
+        <span class="glyphicon glyphicon-chevron-left"></span> Retour
+      </a>
+    </div>
+  </div>
+{% endblock %}

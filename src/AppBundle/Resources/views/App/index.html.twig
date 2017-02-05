@@ -1,0 +1,131 @@
+{% extends "AppBundle::base.html.twig" %}
+
+{% block title %}AppBundle:App:index{% endblock %}
+
+{% block body %}
+  <h2>Liste des mangas de <a href="http://www.japscan.com/" target="_blank">JapScan</a></h2>
+  
+  {{ form_start(form) }}
+  {{ form_errors(form) }}
+  
+  <div class="row" style="margin-bottom: 5px">
+    <div class="col-md-6">
+      {{ form_widget(form.search) }}
+      {{ form_widget(form.reset) }}
+    </div>
+    <div class="col-md-6" style="text-align: right; height: 34px;line-height: 34px; font-weight: bold">
+        {{ mangas|length }}
+        {% if mangas|length > 1 %}
+          résultat(s)
+        {% else %}
+          résultat
+        {% endif %}
+    </div>
+  </div>
+  {#<form>
+    <input type="submit" value="Rechercher" class="btn btn-primary" />
+    <input type="submit" value="Annuler" class="btn btn-default" />#}
+    <table class="table table-bordered table-striped table-condensed table-fixed" style="width: 100%">
+      <thead>
+        {#<tr>
+          <th><input type="textbox" name="name" value="{{ app.session.get('name') }}" /></th>
+          <th>
+            <select name="status">
+              <option value=""></option>
+              {% for s in status %}
+                {% set sel = '' %}
+                {% if s.status == app.session.get('status') %}
+                    {% set sel = 'selected' %}
+                {% endif %}
+                <option value="{{s.status}}" {{ sel }}>{{s.status}}</option>
+              {% endfor %}
+            </select>
+          </th>
+          <th>
+            <select name="genre">
+              <option value=""></option>
+              {% for g in genres %}
+                {% set sel = '' %}
+                {% if g.genre == app.session.get('genre') %}
+                    {% set sel = 'selected' %}
+                {% endif %}
+                <option value="{{g.genre}}" {{ sel }}>{{g.genre}}</option>
+              {% endfor %}
+            </select>
+          </th>
+          <th style="display:none"></th>
+          <th><input type="textbox" name="author" value="{{ app.session.get('author') }}" /></th>
+          <th></th>
+          <th><input type="textbox" name="synopsis" value="{{ app.session.get('synopsis') }}" /></th>
+          <th>
+            <select name="state">
+              <option value=""></option>
+              {% for g in states %}
+                {% set sel = '' %}
+                {% if g.state == app.session.get('state') %}
+                    {% set sel = 'selected' %}
+                {% endif %}
+                <option value="{{g.state}}" {{ sel }}>{{g.state}}</option>
+              {% endfor %}
+            </select>
+          </th>
+          <th><input type="textbox" name="opinion" value="{{ app.session.get('opinion') }}" /></th>
+          <th><input type="textbox" name="url" value="{{ app.session.get('url') }}" /></th>
+        </tr>#}
+        <tr>
+          <th>Nom</th>
+          <th>Statut</th>
+          <th>Genre</th>
+          <th style="display:none">Catégories</th><!-- à créer -->
+          <th>Auteur</th>
+          <th>Début</th>
+          <th>Synopsis</th>
+          <th>Etat</th><!-- (osef, à lire, lu ...) à créer -->
+          <th>Avis</th>
+          <th>Liens</th>
+        </tr>
+        <tr>
+          <td>{{ form_widget(form.name) }}</td>
+          <td>{{ form_widget(form.status) }}</td>
+          <td>{{ form_widget(form.genre) }}</td>
+          <td style="display:none"></td>
+          <td>{{ form_widget(form.author) }}</td>          
+          <td></td>          
+          <td>{{ form_widget(form.synopsis) }}</td>
+          <td>{{ form_widget(form.state) }}</td>
+          <td>{{ form_widget(form.opinion) }}</td>
+          <td>{{ form_widget(form.url) }}</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% if mangas is not empty %}
+          {% for manga in mangas %}
+            <tr>
+              <td>{{ manga.name }}</td>
+              <td>{{ manga.status }}</td>
+              <td>{{ manga.genre }}</td>
+              <td style="display:none"></td>
+              <td>{{ manga.author }}</td>
+              <td>{{ manga.yearStart }}</td>
+              <td>{{ manga.synopsis }}</td>
+              <td>{{ manga.state }}</td>
+              <td>{{ manga.opinion }}</td>
+              <td>
+                {% for u in manga.url %}
+                  <a href="{{ u }}" target="_blank">Accés</a><br />
+                {% endfor %}
+                <a href="{{ path('view', {'slug': manga.slug}) }}">Modifier</a>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="10"><center>Aucun résultat</center></td>
+          </tr>
+        {% endif %}        
+      </tbody>
+    </table>
+  {#<form>#}
+  {{ form_rest(form) }}
+  {{ form_end(form) }}
+{% endblock %}

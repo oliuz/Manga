@@ -1,0 +1,12 @@
+h2 {
+  margin: 5px;
+  text-align: center;
+}
+
+table input, table select {
+  height: 20px !important;
+  min-width: 110px;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}

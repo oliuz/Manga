@@ -1,0 +1,50 @@
+{# src/CoreBundle/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>{% block title %}Manga{% endblock %}</title>
+
+  {% block stylesheets %}
+    {% stylesheets filter="cssrewrite, ?scssphp"
+      'bundles/app/css/bootstrap.min.css'
+      'bundles/app/css/style.css'
+    %}
+      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+  {% endblock %}
+</head>
+
+<body>
+  {#<h1>Manga</h1>#}
+  {% for message in app.session.flashbag.get('info') %}
+    <div class="center alert alert-info" role="alert">
+      {{ message }}
+    </div>
+  {% endfor %}
+
+  {% for message in app.session.flashbag.get('error') %}
+    <div class="center alert alert-danger" role="error">
+      {{ message }}
+    </div>
+  {% endfor %}
+
+  <div class="container-fluid">
+    {% block body %}
+    {% endblock %}
+  </div>
+
+  {% block javascripts %}
+    {% javascripts 
+        'bundles/app/js/jquery.min.js'
+        'bundles/app/js/bootstrap.min.js'
+    %}
+      <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+  {% endblock %}
+  
+</body>
+</html>
